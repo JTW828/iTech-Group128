@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="store-page">
+    <h2 class="store-title">THE STORES IN "{{ city }}"</h2>
+
+    {% if stores %}
+        <div class="grid-container">
+            {% for store in stores %}
+                <a href="{% url 'store_detail' store.id %}"class="store-card">
+                    <img src="{{ store.image.url }}" alt="{{ store.name }}">
+                    <p class="store-name">{{ store.name }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No stores found in this city.</p>
+    {% endif %}
+</div>
+{% endblock %}

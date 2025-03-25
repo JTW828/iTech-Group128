@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="home-hero">
+    <h1 class="search-title">Find Your Fuzzy Friends Here!</h1>
+    <form action="{% url 'store_list' %}" method="GET" class="search-box">
+        <input type="text" name="city" placeholder="Search by city, store" required>
+    </form>
+</div>
+{% endblock %}

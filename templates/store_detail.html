@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ store.name }} - Details{% endblock %}
+
+{% block content %}
+<div class="store-detail-container">
+
+  <!-- 店名 + 地址联系方式 -->
+  <div class="store-header">
+    <h1 class="store-title">{{ store.name }}</h1>
+    <div class="store-meta">
+      <p><strong>Address:</strong> {{ store.address }}</p>
+      <p><strong>Contact:</strong> {{ store.contact }}</p>
+    </div>
+  </div>
+
+  <!-- 主图 + 副图 -->
+  <div class="store-images">
+    <div class="main-image">
+      <img src="{{ store.image.url }}" alt="Main Image">
+    </div>
+    <div class="sub-images">
+      {% if store.sub_image1 %}
+        <img src="{{ store.sub_image1.url }}" alt="Sub Image 1">
+      {% endif %}
+      {% if store.sub_image2 %}
+        <img src="{{ store.sub_image2.url }}" alt="Sub Image 2">
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- 店铺介绍 -->
+  <div class="store-intro">
+    <h3>Introduction</h3>
+    <p>{{ store.introduction }}</p>
+  </div>
+
+  <!-- like & favourite -->
+  <div class="interaction-buttons">
+    <!-- 点赞按钮 -->
+    <button class="like-btn" data-store-id="{{ store.id }}">
+        <i class="fa {% if liked %}fa-solid fa-heart liked{% else %}fa-regular fa-heart not-liked{% endif %} like-icon"></i>
+        <span class="like-count">{{ like_count }}</span>
+    </button>
+
+
+    <!-- 收藏按钮 -->
+    <!-- 收藏按钮 -->
+    <button class="favourite-btn" data-store-id="{{ store.id }}">
+        <i class="fa {% if favourited %}fa-solid fa-star favourited{% else %}fa-regular fa-star not-favourited{% endif %} favourite-icon"></i>
+        <span class="favourite-count">{{ favourite_count }}</span>
+    </button>
+
+  </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/store_detail.css' %}">
+<script src="{% static 'js/interaction.js' %}"></script>
+{% endblock %}

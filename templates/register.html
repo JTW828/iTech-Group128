@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="register-container">
+    <!-- 左侧图片 -->
+    <div class="register-image">
+        <img src="/static/images/rabbit.jpg" alt="Jellycat Toy">
+    </div>
+
+    <!-- 右侧注册表单 -->
+    <div class="register-form">
+        <h2>Become a Member</h2>
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Username</label>
+                {{ form.username }}
+                    {% if form.username.errors %}
+                        <p class="text-red-500 text-sm">{{ form.username.errors.0 }}</p>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                        <p class="text-red-500 text-sm">{{ form.email.errors.0 }}</p>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Password</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <p class="text-red-500 text-sm">{{ form.password1.errors.0 }}</p>
+                {% endif %}
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Confirm Password</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <p class="text-red-500">{{ form.password2.errors }}</p>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn-register">CREATE AN ACCOUNT</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

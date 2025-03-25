@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <!-- 左侧：用户信息 -->
+    <div class="profile-info">
+        <div class="avatar-section">
+            <label for="avatar-upload">
+                {% if user.avatar %}
+                    <img id="avatar-preview" src="{{ user.avatar.url }}" class="avatar-img">
+                {% else %}
+                    <img id="avatar-preview" src="{% static 'images/default-avatar.png' %}" class="avatar-img">
+                {% endif %}
+            </label>
+        </div>
+
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <label>Change Avatar:</label>
+            <input type="file" name="avatar" id="avatar-upload"><br>
+
+            <label>User name:</label>
+            <input type="text" value="{{ user.username }}" disabled><br>
+
+            <label>Email:</label>
+            <input type="email" value="{{ user.email }}" disabled><br>
+
+            <label>Location:</label>
+            <input type="text" name="location" value="{{ user.location }}"><br>
+
+            <button type="submit">Save Edit</button>
+        </form>
+    </div>
+
+    <!-- 右侧：收藏商店区域 -->
+    <div class="favourites">
+        <h3>Your Favourite Stores</h3>
+        {% if user.favourites.all %}
+            <ul>
+                {% for fav in user.favourites.all %}
+                    <li>
+                        <a href="{% url 'store_detail' fav.store.id %}">
+                            {{ fav.store.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="color: gray;">You haven't added any favourite stores yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script src="{% static 'js/avatar_preview.js' %}"></script>
+
+{% endblock %}

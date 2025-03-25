@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="logo">
+                <img src="{% static 'images/logo.jpg' %}" alt="Logo">
+            </a>
+        </div>
+        <div class="navbar-right">
+            <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+            <a href="{% url 'login' %}" class="nav-link">Logout</a>
+        </div>
+    </nav>
+
+    <!-- 页面内容 -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
